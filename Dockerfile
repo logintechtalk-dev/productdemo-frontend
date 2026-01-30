@@ -1,5 +1,5 @@
 # ---- Build stage ----
-FROM cirrusci/flutter:3.22.0 AS build
+FROM cirrusci/flutter:stable AS build
 
 WORKDIR /app
 COPY . .
