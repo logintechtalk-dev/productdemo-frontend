@@ -1,14 +1,16 @@
-# ---- Build stage ----
-FROM cirrusci/flutter:stable AS build
+# -------- Build Stage --------
+FROM ghcr.io/cirruslabs/flutter:stable AS build
 
 WORKDIR /app
 COPY . .
 
+RUN flutter config --enable-web
 RUN flutter pub get
 RUN flutter build web
 
-# ---- Serve stage ----
+# -------- Runtime Stage --------
 FROM nginx:alpine
+
 COPY --from=build /app/build/web /usr/share/nginx/html
 
 EXPOSE 80
